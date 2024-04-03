@@ -1,0 +1,9 @@
+.anuncios-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.anuncio {
+    margin: 15px;
+}

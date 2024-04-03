@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    width: 50%;
+}
+.form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.form mat-form-field {
+    width: 100%;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  background-color: #FF6126;
+  color: #e5e5e5;
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+  transition: opacity 500ms;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button:enabled:hover {
+  opacity: 0.75;
+}

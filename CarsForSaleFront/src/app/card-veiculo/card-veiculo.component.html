@@ -1,0 +1,41 @@
+<section>
+  <div [id]="'carouselExampleIndicators-' + anuncio.id" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li *ngFor="let imagem of anuncio.fotos; let i = index" [attr.data-target]="'#carouselExampleIndicators-' + anuncio.id" [attr.data-slide-to]="i" [class.active]="i === 0"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let imagem of anuncio.fotos; let i = index" [class.active]="i === 0">
+        <img class="d-block w-100" [src]="imagem" alt="Primeiro Slide">
+      </div>
+    </div>
+    <a class="carousel-control-prev" [href]="'#carouselExampleIndicators-' + anuncio.id" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" [href]="'#carouselExampleIndicators-' + anuncio.id" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Próximo</span>
+    </a>
+  </div>
+
+
+  <div class="info">
+        <div class="valor-box">
+            <span class="valor">{{anuncio.valor | currency: "BRL"}}</span>
+        </div>
+        <div class="detalhes">
+            <span class="modelo">{{anuncio.veiculo.modelo}}</span>
+            <div class="principais-info">
+                <div class="principal-info">
+                    <img src="assets/images/velocimetro.png" alt="" srcset="">
+                    <span>{{anuncio.veiculo.kmRodados}} km</span>
+                </div>
+                <div class="principal-info">
+                    <img src="assets/images/pincel.png" alt="" srcset="">
+                    <span>{{anuncio.veiculo.cor}}</span>
+                </div>
+            </div>
+            <span class="Localidade">{{anuncio.anunciante.endereco.cidade}} - {{anuncio.anunciante.endereco.estado}}</span>
+        </div>
+    </div>
+</section>

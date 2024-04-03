@@ -1,0 +1,53 @@
+section {
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    color: #000000c7;
+    font-family: "Inter", sans-serif;
+    transition: box-shadow 0.25s;
+}
+
+section:hover {
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.075);
+}
+
+img {
+    width: 300px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0px 0px 10px;
+    margin-top: 10px;
+}
+
+.info .valor {
+    font-size: 24px;
+}
+
+.detalhes {
+    margin-top: 10px;
+}
+
+.principais-info {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.principal-info {
+    display: flex;
+    align-items: center;
+}
+
+.principal-info img {
+    width: 24px;
+    margin-right: 5px;
+}
+
+.carousel-item img {
+   width: 300px;
+   height: 175px;
+}
