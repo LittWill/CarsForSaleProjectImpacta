@@ -1,7 +1,6 @@
 package com.wnra.carsforsale.controller.marca.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**

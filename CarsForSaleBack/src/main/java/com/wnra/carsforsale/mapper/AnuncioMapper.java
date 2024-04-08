@@ -7,8 +7,6 @@ import com.wnra.carsforsale.domain.FotoAnuncio;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
-
 @Component
 @Mapper(componentModel = "spring")
 public interface AnuncioMapper {

@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * DTO for {@link com.wnra.carsforsale.domain.Anuncio}
  */
-public record EntradaAnuncioDTO(VeiculoDto veiculo, BigDecimal valor, UsuarioDto anunciante, Set<String> fotos,
+public record EntradaAnuncioDTO(VeiculoDto veiculo, BigDecimal valor, Set<String> fotos,
                                 String descricao, Anuncio.TipoNegociacao tipoNegociacao) implements Serializable {
     /**
      * DTO for {@link com.wnra.carsforsale.domain.Veiculo}
@@ -26,11 +26,5 @@ public record EntradaAnuncioDTO(VeiculoDto veiculo, BigDecimal valor, UsuarioDto
                 this(UUID.fromString(id));
             }
         }
-    }
-
-    /**
-     * DTO for {@link com.wnra.carsforsale.domain.Usuario}
-     */
-    public record UsuarioDto(UUID id) implements Serializable {
     }
 }

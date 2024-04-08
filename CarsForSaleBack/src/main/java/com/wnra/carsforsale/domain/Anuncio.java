@@ -13,7 +13,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Anuncio {
+public class
+Anuncio {
 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id

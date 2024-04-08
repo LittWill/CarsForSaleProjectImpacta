@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -42,20 +41,20 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(
-                        authorizeConfig -> {
-                            authorizeConfig
-                                    .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                                    .requestMatchers(HttpMethod.GET, "/anuncios").permitAll()
-                                    .requestMatchers(SWAGGER_WHITELIST).permitAll()
-                                    .anyRequest().authenticated();
-                        }
-                )
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorizeConfig -> authorizeConfig
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/anuncios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/marcas").permitAll()
+                        .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                        .anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2ResourceServerConfigurer -> oauth2ResourceServerConfigurer
+                        .jwt(Customizer.withDefaults()))
                 .httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()))
                 .build();
     }
+
 
     @Bean
     public JwtDecoder jwtDecoder() {

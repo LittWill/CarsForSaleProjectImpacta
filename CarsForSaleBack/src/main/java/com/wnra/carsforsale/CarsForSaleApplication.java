@@ -1,21 +1,19 @@
 package com.wnra.carsforsale;
 
-import com.wnra.carsforsale.domain.*;
+import com.wnra.carsforsale.domain.Endereco;
+import com.wnra.carsforsale.domain.Marca;
+import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.repository.AnuncioRepository;
 import com.wnra.carsforsale.repository.MarcaRepository;
 import com.wnra.carsforsale.repository.UsuarioRepository;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Set;
-import java.util.UUID;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -33,7 +31,7 @@ public class CarsForSaleApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Marca toyota = Marca.builder().nome("Toyota").dataCriacao(LocalDateTime.now()).build();
+	/*	Marca toyota = Marca.builder().nome("Toyota").dataCriacao(LocalDateTime.now()).build();
 		Marca honda = Marca.builder().nome("Honda").dataCriacao(LocalDateTime.now()).build();
 		Marca ford = Marca.builder().nome("Ford").dataCriacao(LocalDateTime.now()).build();
 		Marca chevrolet = Marca.builder().nome("Chevrolet").dataCriacao(LocalDateTime.now()).build();
@@ -60,6 +58,8 @@ public class CarsForSaleApplication implements CommandLineRunner {
 
 		usuarioRepository.save(wilson);
 		marcaRepository.saveAll(Arrays.asList(toyota, honda, ford, chevrolet, volkswagen, bmw, mercedes, audi, nissan, hyundai));
+
+	 */
 
 
 	}

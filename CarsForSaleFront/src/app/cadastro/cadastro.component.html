@@ -1,0 +1,54 @@
+<div class="container">
+
+
+  <form class="form" [formGroup]="formularioCadastro" (submit)="submeter()">
+
+    <h1>Cadastro Cars for Sale</h1>
+
+    <div class="campo-col">
+      <mat-form-field appearance="outline">
+        <mat-label>Primeiro nome</mat-label>
+        <input matInput formControlName="primeiroNome">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Último nome</mat-label>
+        <input matInput formControlName="ultimoNome">
+      </mat-form-field>
+    </div>
+
+    <div class="campo-col">
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="cidade">
+      </mat-form-field>
+    </div>
+
+    <div class="campo-col">
+      <mat-form-field appearance="outline">
+        <mat-label>Endereço</mat-label>
+        <input matInput formControlName="endereco">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="numero">
+      </mat-form-field>
+    </div>
+
+
+    <div class="rotas-alternativas">
+      <a routerLink="/login">Já possui conta?</a>
+    </div>
+
+
+    <button type="submit" [disabled]="formularioCadastro.invalid">Entrar</button>
+
+  </form>
+</div>
+
