@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {UserDetailsResponse} from "../interfaces/user-details-response";
 import {AlertService} from "./alert.service";
 import {Router} from "@angular/router";
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,10 @@ export class AuthService {
   armazenarToken(token: string) {
     localStorage.setItem("token", token);
   }
+
+  obterToken() {
+    return localStorage.getItem("token");
+  }
   armazenarUsuario(userDetails: UserDetailsResponse){
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
   }
@@ -56,5 +61,17 @@ export class AuthService {
 
   buscarInformacoesDoUsuario(){
     return this.httpClient.get<UserDetailsResponse>(BackendEndpoints.HOST + "/usuarios/me");
+  }
+
+  usuarioEstaAutenticado(){
+    const token = this.obterToken()
+
+    if (!token){
+        return false;
+    }
+
+    const dataExpiracao = new Date(jwtDecode(token).exp!)
+
+    return new Date() > dataExpiracao;
   }
 }

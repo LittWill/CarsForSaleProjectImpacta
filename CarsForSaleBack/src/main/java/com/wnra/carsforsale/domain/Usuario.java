@@ -43,6 +43,9 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "anunciante")
     private Set<Anuncio> anunciosPublicados;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Set<TokenRecuperacaoSenha> tokensRecuperacaoSenha;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "Interessado");

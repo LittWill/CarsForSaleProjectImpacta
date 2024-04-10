@@ -5,6 +5,7 @@ import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.repository.TokenRecuperacaoSenhaRepository;
 import com.wnra.carsforsale.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,13 +13,18 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class TokenRecuperacaoSenhaService {
+public class RecuperacaoSenhaService {
 
     private final UsuarioRepository usuarioRepository;
 
     private final TokenRecuperacaoSenhaRepository tokenRecuperacaoSenhaRepository;
 
-    public TokenRecuperacaoSenha gerarToken(String emailUsuario){
+    private final EmailService emailService;
+
+    @Value("${spring.mail.username}")
+    private String username;
+
+    public void gerarToken(String emailUsuario){
         Usuario usuario = usuarioRepository.findByEmail(emailUsuario).orElseThrow();
         TokenRecuperacaoSenha tokenRecuperacaoSenha = TokenRecuperacaoSenha.builder()
                 .dataExpiracao(LocalDateTime.now().plusMinutes(10))
@@ -27,8 +33,13 @@ public class TokenRecuperacaoSenhaService {
                 .usuario(usuario)
                 .build();
 
-        //TODO: Implementar envio de email
+        TokenRecuperacaoSenha token = tokenRecuperacaoSenhaRepository.save(tokenRecuperacaoSenha);
 
-        return tokenRecuperacaoSenhaRepository.save(tokenRecuperacaoSenha);
+        String mensagem = """
+                Olá, você solicitou recentemente uma redefinição de senha de acesso à Cars for Sale.
+                Insira o código a seguir solicitado no painel de recuperação de senha:
+                """;
+
+        emailService.enviarEmail(username, "Cars for Sale: Código para recuperação de senha", mensagem + token.getCodigo() + ".");
     }
 }

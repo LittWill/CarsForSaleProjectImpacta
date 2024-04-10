@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AnuncioServiceService } from '../services/anuncio-service.service';
 import { CardVeiculoComponent } from "../card-veiculo/card-veiculo.component";
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import {AlertService} from "../services/alert.service";
 import {MarcaResponse} from "../interfaces/marca-response";
 
@@ -10,7 +10,7 @@ import {MarcaResponse} from "../interfaces/marca-response";
     standalone: true,
     templateUrl: './listar-veiculos.component.html',
     styleUrl: './listar-veiculos.component.scss',
-    imports: [CardVeiculoComponent, NgFor]
+    imports: [CardVeiculoComponent, NgFor, NgIf]
 })
 export class ListarVeiculosComponent {
 

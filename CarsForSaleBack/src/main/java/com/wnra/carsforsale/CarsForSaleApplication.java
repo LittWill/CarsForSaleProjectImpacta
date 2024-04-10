@@ -6,10 +6,12 @@ import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.repository.AnuncioRepository;
 import com.wnra.carsforsale.repository.MarcaRepository;
 import com.wnra.carsforsale.repository.UsuarioRepository;
+import com.wnra.carsforsale.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,8 @@ public class CarsForSaleApplication implements CommandLineRunner {
 	private final MarcaRepository marcaRepository;
 
 	private final UsuarioRepository usuarioRepository;
+
+	private final EmailService emailService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarsForSaleApplication.class, args);

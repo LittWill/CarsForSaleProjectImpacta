@@ -1,5 +1,6 @@
 package com.wnra.carsforsale.controller.usuario;
 
+import com.wnra.carsforsale.controller.usuario.dto.AtualizacaoSenhaDTO;
 import com.wnra.carsforsale.controller.usuario.dto.EntradaUsuarioDTO;
 import com.wnra.carsforsale.controller.usuario.dto.SaidaUsuarioDTO;
 import com.wnra.carsforsale.mapper.UsuarioMapper;
@@ -27,5 +28,11 @@ public class UsuarioController {
     @GetMapping("me")
     public ResponseEntity<SaidaUsuarioDTO> obterInformacoesUsuarioLogado(){
         return ResponseEntity.ok(usuarioMapper.paraSaida(usuarioService.obterUsuarioLogado()));
+    }
+
+    @PatchMapping
+    public ResponseEntity<Void> atualizarSenha(@RequestBody AtualizacaoSenhaDTO atualizacaoSenhaDTO){
+        usuarioService.alterarSenha(atualizacaoSenhaDTO.email(), atualizacaoSenhaDTO.codigoRecuperacao(), atualizacaoSenhaDTO.senhaNova());
+        return ResponseEntity.noContent().build();
     }
 }

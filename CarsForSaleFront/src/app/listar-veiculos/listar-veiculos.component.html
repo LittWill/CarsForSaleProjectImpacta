@@ -1,3 +1,6 @@
+<div class="warning-container" *ngIf="anuncios.length === 0">
+    <h1>Nenhum anúncio encontrado!</h1>
+</div>
 <div class="anuncios-container">
     <div class="anuncio" *ngFor="let anuncio of anuncios">
 
