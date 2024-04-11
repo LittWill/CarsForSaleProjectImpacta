@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { AnuncioServiceService } from '../services/anuncio-service.service';
 import { CardVeiculoComponent } from "../card-veiculo/card-veiculo.component";
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import {AlertService} from "../services/alert.service";
 import {MarcaResponse} from "../interfaces/marca-response";
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
     selector: 'app-listar-veiculos',
@@ -17,7 +18,8 @@ export class ListarVeiculosComponent {
   anuncios = []
 
   constructor(private anuncioService: AnuncioServiceService,
-              private alertService: AlertService){
+              private alertService: AlertService,
+              public spinnerService: SpinnerService){
 
     anuncioService.obterAnuncios().subscribe({
       next: (anuncios: any) => {

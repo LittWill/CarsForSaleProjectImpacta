@@ -57,6 +57,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("token")
+    localStorage.removeItem("userDetails")
   }
 
   buscarInformacoesDoUsuario(){
@@ -66,12 +67,17 @@ export class AuthService {
   usuarioEstaAutenticado(){
     const token = this.obterToken()
 
+    console.log(token)
+
     if (!token){
         return false;
     }
 
-    const dataExpiracao = new Date(jwtDecode(token).exp!)
+    const decodedToken = jwtDecode(token);
 
-    return new Date() > dataExpiracao;
+    const dataExpiracao = new Date(0)
+    dataExpiracao.setUTCSeconds(decodedToken.exp!)
+
+    return dataExpiracao > new Date();
   }
 }

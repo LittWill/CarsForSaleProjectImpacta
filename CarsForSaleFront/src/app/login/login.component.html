@@ -2,7 +2,7 @@
 
 
 
-  <form class="form" [formGroup]="formularioLogin" (submit)="submeter()">
+  <form class="form" [formGroup]="formularioLogin" (submit)="submeter()" *ngIf="!spinnerService.isLoading$.getValue()">
 
     <h1>Bem-vindo ao Cars For Sale!</h1>
 

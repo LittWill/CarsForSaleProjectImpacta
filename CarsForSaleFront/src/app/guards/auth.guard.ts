@@ -12,7 +12,11 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  alertService.alert('Sua sessão expirou!', "Você será redirecionado para a página de login.", 'warning');
-  router.navigate(['/login']);
+  alertService.alert('Sua sessão expirou!', "Você será redirecionado para a página de login.", 'warning').then((isConfirmed) => {
+    if (isConfirmed){
+      router.navigate(['/login']);
+    }
+  });
+  
   return false;
 }
