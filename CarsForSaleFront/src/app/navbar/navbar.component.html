@@ -2,4 +2,18 @@
     <a routerLink="/anuncios">Home</a>
     <input type="text" name="pesquisa-carros" id="pesquisa-carros" placeholder="Busque um modelo, marca etc.">
     <a routerLink="/anunciar" routerLinkActive>Anuncie seu veículo</a>
+    <a routerLink="/login" routerLinkActive *ngIf="!authService.usuarioEstaAutenticado(); else menu_logado">Login</a>
+
 </nav>
+<ng-template #menu_logado>
+
+    <a routerLink="/meus-anuncios" routerLinkActive class="usuarioLogado">
+        Meus anúncios
+    </a>
+        <button (click)="logout()" class="usuarioLogado">
+            <mat-icon>person_pin</mat-icon>
+            <span>{{authService.obterUsuarioLogado().primeiroNome}}</span>
+        </button>
+
+        
+</ng-template>

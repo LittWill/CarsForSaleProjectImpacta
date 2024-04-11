@@ -4,7 +4,7 @@ nav {
     background-color: #ff6126;
     height: 50px;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 nav a {
@@ -12,6 +12,14 @@ nav a {
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+nav button {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    background-color: #ff6126;
+    border: 1px solid gainsboro;
 }
 
 input {
@@ -24,4 +32,10 @@ input {
 input:focus {
     outline: #ff6126;
     outline-style: auto;
+}
+
+.usuarioLogado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

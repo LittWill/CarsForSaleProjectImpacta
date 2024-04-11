@@ -51,8 +51,12 @@ export class AuthService {
   obterToken() {
     return localStorage.getItem("token");
   }
-  armazenarUsuario(userDetails: UserDetailsResponse){
+  private armazenarUsuario(userDetails: UserDetailsResponse){
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
+  }
+
+  public obterUsuarioLogado(){
+    return JSON.parse(localStorage.getItem("userDetails")!);
   }
 
   logout() {
@@ -60,7 +64,7 @@ export class AuthService {
     localStorage.removeItem("userDetails")
   }
 
-  buscarInformacoesDoUsuario(){
+  private buscarInformacoesDoUsuario(){
     return this.httpClient.get<UserDetailsResponse>(BackendEndpoints.HOST + "/usuarios/me");
   }
 
