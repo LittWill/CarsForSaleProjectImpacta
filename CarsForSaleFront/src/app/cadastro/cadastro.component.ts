@@ -6,7 +6,7 @@ import {map, Observable, startWith} from "rxjs";
 import {AnuncioServiceService} from "../services/anuncio-service.service";
 import {AlertService} from "../services/alert.service";
 import {Router, RouterLink} from "@angular/router";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
@@ -17,6 +17,7 @@ import {AuthService} from "../services/login.service";
   selector: 'app-cadastro',
   standalone: true,
   imports: [
+    MatFormFieldModule,
     FormsModule,
     MatFormField,
     MatIcon,
@@ -33,7 +34,9 @@ export class CadastroComponent {
 
   formularioCadastro: FormGroup
   authRequest !: AuthRequest
-  hide = true;
+  hidePassword = true;
+  hideConfirmPassword = true;
+
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) {
 
@@ -41,7 +44,8 @@ export class CadastroComponent {
       primeiroNome: ['', [Validators.required]],
       ultimoNome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]],
+      senha: ['', [Validators.required, Validators.minLength(8)]],
+      confirmacaoSenha: ['', [Validators.required, Validators.minLength(8)]],
       cep: ['', [Validators.required]],
       cidade: ['', [Validators.required]],
       estado: ['', [Validators.required]],
@@ -51,13 +55,15 @@ export class CadastroComponent {
     });
   }
 
+  senhaPossuiAoMenosUmNumero(){
+    
+  }
+
   submeter() {
     this.authRequest = {
       email: this.formularioCadastro.value.email,
       senha: this.formularioCadastro.value.senha
     }
-
-    console.log(this.authRequest);
 
     this.authService.autenticar(this.authRequest);
   }

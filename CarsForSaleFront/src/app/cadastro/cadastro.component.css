@@ -64,3 +64,11 @@ button[type="submit"]:enabled:hover {
   display: flex;
   justify-content: space-between;
 }
+
+.requisito-senha-violado {
+  list-style-type: '❌';
+}
+
+.requisito-senha-cumprido {
+  list-style-type: '✅';
+}

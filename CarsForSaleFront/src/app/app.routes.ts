@@ -6,7 +6,7 @@ import {LoginComponent} from "./login/login.component";
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  {path: 'anuncios', component: ListarVeiculosComponent, canActivate: [authGuard]},
+  {path: 'anuncios', component: ListarVeiculosComponent},
   {path: '', redirectTo: '/anuncios', pathMatch: 'full'},
   {path: 'anunciar', component: AnunciarVeiculoComponent, canActivate: [authGuard]},
   {path: 'cadastro', component: CadastroComponent},

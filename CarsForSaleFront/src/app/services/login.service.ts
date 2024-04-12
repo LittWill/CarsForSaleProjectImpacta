@@ -71,8 +71,6 @@ export class AuthService {
   usuarioEstaAutenticado(){
     const token = this.obterToken()
 
-    console.log(token)
-
     if (!token){
         return false;
     }
