@@ -51,14 +51,14 @@
         <mat-label>Insira sua senha</mat-label>
         <input matInput type="password" formControlName="senha" [type]="hidePassword ? 'password' : 'text'" #senha>
         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" >
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Confirme sua senha</mat-label>
-        <input matInput type="password" formControlName="senha" [type]="hideConfirmPassword ? 'password' : 'text'" #confirmacaoSenha>
+        <input matInput type="password" formControlName="confirmacaoSenha" [type]="hideConfirmPassword ? 'password' : 'text'" #confirmacaoSenha>
         <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
           [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
           <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -70,10 +70,10 @@
       <p>Requisitos da senha:</p>
       <ul class="requisitos-senha">
 
-        <li [class]="senha.value.length >= 8 ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve conter no mínimo 8 caracteres</li>
-        <li [class]="senha.value.match('[0-9]') != null ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um número</li>
-        <li [class]="senha.value.match('[!@#$%^&*()_+{}\:;<>,.?\/\\|~-]') != null ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um caractere especial</li>
-        <li [class]="senha.value.length > 0 && confirmacaoSenha.value.length > 0 && senha.value === confirmacaoSenha.value ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">As senhas devem coincidir</li>
+        <li [class]="senhaPossuiTamanhoMinimo(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve conter no mínimo 8 caracteres</li>
+        <li [class]="senhaPossuiUmNumero(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um número</li>
+        <li [class]="senhaPossuiUmCaractereEspecial(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um caractere especial</li>
+        <li [class]="senhasCoincidem(senha.value, confirmacaoSenha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">As senhas devem coincidir</li>
       </ul>
     </div>
 
