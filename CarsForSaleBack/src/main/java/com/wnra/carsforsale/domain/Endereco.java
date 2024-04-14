@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 public class Endereco {
 
     @Column(nullable = false)
-    private String cep;
-
-    @Column(nullable = false)
     private String estado;
 
     @Column(nullable = false)

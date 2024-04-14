@@ -4,11 +4,12 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { AuthService } from '../services/login.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertService } from '../services/alert.service';
+import {MatMenuModule} from '@angular/material/menu'
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf, MatIconModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf, MatIconModule, MatMenuModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

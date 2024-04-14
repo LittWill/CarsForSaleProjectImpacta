@@ -35,7 +35,7 @@ public class CarsForSaleApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	/*	Marca toyota = Marca.builder().nome("Toyota").dataCriacao(LocalDateTime.now()).build();
+		/*Marca toyota = Marca.builder().nome("Toyota").dataCriacao(LocalDateTime.now()).build();
 		Marca honda = Marca.builder().nome("Honda").dataCriacao(LocalDateTime.now()).build();
 		Marca ford = Marca.builder().nome("Ford").dataCriacao(LocalDateTime.now()).build();
 		Marca chevrolet = Marca.builder().nome("Chevrolet").dataCriacao(LocalDateTime.now()).build();
@@ -53,7 +53,6 @@ public class CarsForSaleApplication implements CommandLineRunner {
 				.dataCadastro(LocalDateTime.now())
 				.primeiroNome("Wilson").ultimoNome("de Almeida")
 				.endereco(Endereco.builder()
-						.cep("05892335")
 						.cidade("São Paulo")
 						.estado("SP")
 						.numero("1001")
@@ -63,8 +62,10 @@ public class CarsForSaleApplication implements CommandLineRunner {
 		usuarioRepository.save(wilson);
 		marcaRepository.saveAll(Arrays.asList(toyota, honda, ford, chevrolet, volkswagen, bmw, mercedes, audi, nissan, hyundai));
 
-	 */
 
+
+
+		 */
 
 	}
 }

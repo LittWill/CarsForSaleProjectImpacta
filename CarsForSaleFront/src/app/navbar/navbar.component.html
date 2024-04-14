@@ -1,19 +1,21 @@
 <nav>
     <a routerLink="/anuncios">Home</a>
     <input type="text" name="pesquisa-carros" id="pesquisa-carros" placeholder="Busque um modelo, marca etc.">
-    <a routerLink="/anunciar" routerLinkActive>Anuncie seu veículo</a>
+
     <a routerLink="/login" routerLinkActive *ngIf="!authService.usuarioEstaAutenticado(); else menu_logado">Login</a>
 
 </nav>
 <ng-template #menu_logado>
 
-    <a routerLink="/meus-anuncios" routerLinkActive class="usuarioLogado">
-        Meus anúncios
-    </a>
-        <button (click)="logout()" class="usuarioLogado">
-            <mat-icon>person_pin</mat-icon>
-            <span>{{authService.obterUsuarioLogado().primeiroNome}}</span>
-        </button>
+    <a routerLink="/anunciar" routerLinkActive>Anunciar</a>
+    <button mat-button [matMenuTriggerFor]="menu" class="usuarioLogado">
+        <mat-icon>person_pin</mat-icon>
+        {{authService.obterUsuarioLogado().primeiroNome}}
+    </button>
+    <mat-menu #menu="matMenu">
+        <a routerLink="/meus-anuncios" mat-menu-item routerLinkActive>Meus anúncios</a>
+        <button mat-menu-item>Sair</button>
+    </mat-menu>
 
-        
+
 </ng-template>

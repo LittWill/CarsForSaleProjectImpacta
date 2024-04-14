@@ -12,6 +12,7 @@ import { MatIconButton } from "@angular/material/button";
 import { MatInput } from "@angular/material/input";
 import { AuthRequest } from "../interfaces/auth-request";
 import { AuthService } from "../services/login.service";
+import { UsuarioForm } from '../interfaces/usuario-form';
 
 @Component({
   selector: 'app-cadastro',
@@ -33,23 +34,23 @@ import { AuthService } from "../services/login.service";
 export class CadastroComponent {
 
   formularioCadastro: FormGroup
-  authRequest !: AuthRequest
+  usuarioForm !: UsuarioForm
   hidePassword = true;
   hideConfirmPassword = true;
 
   constructor(private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService, private alertService: AlertService, private router: Router) {
 
     this.formularioCadastro = this.formBuilder.group({
-      primeiroNome: ['', [Validators.required]],
-      ultimoNome: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(8), this.senhaPossuiUmNumeroValidator()]],
-      confirmacaoSenha: ['', [Validators.required, Validators.minLength(8)]],
-      cidade: ['', [Validators.required]],
-      estado: ['', [Validators.required]],
-      endereco: ['', [Validators.required]],
-      numero: ['', [Validators.required]]
+      primeiroNome: ['Wilson', [Validators.required]],
+      ultimoNome: ['Almeida', [Validators.required]],
+      email: ['wilson@email.com', [Validators.required, Validators.email]],
+      senha: ['WilsonHawx123!', [Validators.required, Validators.minLength(8), this.senhaPossuiUmNumeroValidator()]],
+      confirmacaoSenha: ['WilsonHawx123!', [Validators.required, Validators.minLength(8)]],
+      cidade: ['Poá', [Validators.required]],
+      estado: ['SP', [Validators.required]],
+      endereco: ['Rua Guariba', [Validators.required]],
+      numero: ['110', [Validators.required]]
 
     }, {validators: this.senhasCoincidemValidator()});
   }
@@ -94,12 +95,32 @@ export class CadastroComponent {
   }
 
   submeter() {
-    this.authRequest = {
+    this.usuarioForm = {
       email: this.formularioCadastro.value.email,
-      senha: this.formularioCadastro.value.senha
+      senha: this.formularioCadastro.value.senha,
+      primeiroNome: this.formularioCadastro.value.primeiroNome,
+      ultimoNome: this.formularioCadastro.value.ultimoNome,
+      endereco: {
+        cidade: this.formularioCadastro.value.cidade,
+        estado: this.formularioCadastro.value.estado,
+        endereco: this.formularioCadastro.value.cidade,
+        numero: this.formularioCadastro.value.cidade
+      }
     }
 
-    this.authService.autenticar(this.authRequest);
+    this.authService.cadastrarUsuario(this.usuarioForm).subscribe({
+      next : (response) => {
+        this.alertService.alert('Legal! Você está cadastrado!', 'Em seguida, você será redirecionado para à página de login!', 'success')
+        .then(isConfirmed => {
+          if (isConfirmed){
+            this.router.navigate(['/login'])
+          }
+        })
+      },
+      error: (err) => {
+        this.alertService.alert('Não foi possível concluir o seu cadastro!', 'Tente novamente mais tarde!', 'error');
+      }
+    });
   }
 
 }

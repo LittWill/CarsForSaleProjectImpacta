@@ -1,6 +1,6 @@
 nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #ff6126;
     height: 50px;
     align-items: center;
@@ -19,11 +19,11 @@ nav button {
     color: white;
     text-align: center;
     background-color: #ff6126;
-    border: 1px solid gainsboro;
+    border: none;
 }
 
 input {
-    width: 75%;
+    flex-basis: 75%;
     height: 30px;
     border-radius: 5px;
     border: none;
@@ -35,6 +35,7 @@ input:focus {
 }
 
 .usuarioLogado {
+    width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;

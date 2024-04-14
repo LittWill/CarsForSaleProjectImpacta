@@ -7,6 +7,7 @@ import {UserDetailsResponse} from "../interfaces/user-details-response";
 import {AlertService} from "./alert.service";
 import {Router} from "@angular/router";
 import { jwtDecode } from 'jwt-decode';
+import { UsuarioForm } from '../interfaces/usuario-form';
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +82,9 @@ export class AuthService {
     dataExpiracao.setUTCSeconds(decodedToken.exp!)
 
     return dataExpiracao > new Date();
+  }
+
+  cadastrarUsuario(formularioCadastro: UsuarioForm) {
+    return this.httpClient.post(BackendEndpoints.HOST + "/usuarios", formularioCadastro);
   }
 }

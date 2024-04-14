@@ -10,7 +10,7 @@ public record EntradaUsuarioDTO(String primeiroNome, String ultimoNome, String e
     /**
      * DTO for {@link com.wnra.carsforsale.domain.Endereco}
      */
-    public record EnderecoDto(String cep, String estado, String cidade, String endereco,
+    public record EnderecoDto(String estado, String cidade, String endereco,
                               String numero) implements Serializable {
     }
 }
