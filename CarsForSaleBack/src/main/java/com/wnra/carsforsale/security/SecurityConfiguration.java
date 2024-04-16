@@ -45,8 +45,11 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeConfig -> authorizeConfig
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.GET, "/anuncios").permitAll()
                         .requestMatchers(HttpMethod.GET, "/marcas").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/recuperacao-senha/{email}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/recuperacao-senha/validar/{codigo}").permitAll()
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServerConfigurer -> oauth2ResourceServerConfigurer

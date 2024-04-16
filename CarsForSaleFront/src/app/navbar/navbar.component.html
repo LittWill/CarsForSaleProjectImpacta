@@ -14,7 +14,7 @@
     </button>
     <mat-menu #menu="matMenu">
         <a routerLink="/meus-anuncios" mat-menu-item routerLinkActive>Meus anúncios</a>
-        <button mat-menu-item>Sair</button>
+        <button mat-menu-item (click)="logout()">Sair</button>
     </mat-menu>
 
 

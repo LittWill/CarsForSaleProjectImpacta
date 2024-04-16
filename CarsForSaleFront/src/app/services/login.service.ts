@@ -8,6 +8,7 @@ import {AlertService} from "./alert.service";
 import {Router} from "@angular/router";
 import { jwtDecode } from 'jwt-decode';
 import { UsuarioForm } from '../interfaces/usuario-form';
+import { ChangePasswordForm } from '../interfaces/change-pass-form';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +87,17 @@ export class AuthService {
 
   cadastrarUsuario(formularioCadastro: UsuarioForm) {
     return this.httpClient.post(BackendEndpoints.HOST + "/usuarios", formularioCadastro);
+  }
+
+  gerarTokenRecuperacaoSenha(email: string) {
+    return this.httpClient.post(BackendEndpoints.HOST + "/recuperacao-senha/" + email, null);
+  }
+
+  validarCodigo(codigo: string) {
+    return this.httpClient.post(BackendEndpoints.HOST + "/recuperacao-senha/validar/" + codigo, null);
+  }
+
+  alterarSenha(changePasswordForm: ChangePasswordForm) {
+    return this.httpClient.patch(BackendEndpoints.HOST + "/usuarios", changePasswordForm);
   }
 }

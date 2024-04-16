@@ -22,4 +22,10 @@ public class RecuperacaoSenhaController {
          return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("validar/{codigo}")
+    public ResponseEntity<Void> validarToken(@PathVariable String codigo){
+        recuperacaoSenhaService.validarToken(codigo);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

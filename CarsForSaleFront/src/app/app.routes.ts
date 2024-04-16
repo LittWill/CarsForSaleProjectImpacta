@@ -4,6 +4,7 @@ import {AnunciarVeiculoComponent} from './anunciar-veiculo/anunciar-veiculo.comp
 import {CadastroComponent} from "./cadastro/cadastro.component";
 import {LoginComponent} from "./login/login.component";
 import { authGuard } from './guards/auth.guard';
+import { EsqueceuSenhaComponent } from './esqueceu-senha/esqueceu-senha.component';
 
 export const routes: Routes = [
   {path: 'anuncios', component: ListarVeiculosComponent},
@@ -11,4 +12,5 @@ export const routes: Routes = [
   {path: 'anunciar', component: AnunciarVeiculoComponent, canActivate: [authGuard]},
   {path: 'cadastro', component: CadastroComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'esqueceu-senha', component: EsqueceuSenhaComponent}
 ];

@@ -1,0 +1,57 @@
+<div class="container">
+
+
+
+  <form class="form" [formGroup]="formularioLogin" (submit)="submeter()" *ngIf="currentState.actionName === 'submitEmail'">
+
+
+    <h1>Recuperação de Senha</h1>
+
+    <h2>Um código de recuperação de senha será enviado para o seu email</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Insira o email da sua conta</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="formularioLogin.get('email')?.errors">Enviar</button>
+
+  </form>
+
+  <form class="form" [formGroup]="formularioLogin" (submit)="submeter()" *ngIf="currentState.actionName === 'validateCodigo'">
+
+
+    <h1>Email foi enviado!</h1>
+
+    <h2>Abaixo, insira o código enviado no email</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Insira o código</mat-label>
+      <input matInput type="tel" minlength="6" maxlength="6" formControlName="codigo">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="formularioLogin.get('codigo')?.errors">Submeter</button>
+
+  </form>
+
+  <form class="form" [formGroup]="formularioLogin" (submit)="submeter()" *ngIf="currentState.actionName === 'submitPassword'">
+
+
+    <h1>Recuperação de senha</h1>
+
+    <h2>Redefina sua senha</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Insira a nova senha</mat-label>
+      <input matInput type="password" formControlName="senha">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Repita a nova senha</mat-label>
+      <input matInput type="password" formControlName="confirmacaoSenha">
+    </mat-form-field>
+
+    <button type="submit" [disabled]="formularioLogin.invalid">Submeter</button>
+
+  </form>
+</div>

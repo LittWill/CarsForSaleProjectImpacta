@@ -4,6 +4,7 @@ import com.wnra.carsforsale.domain.TokenRecuperacaoSenha;
 import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.repository.TokenRecuperacaoSenhaRepository;
 import com.wnra.carsforsale.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,7 @@ public class RecuperacaoSenhaService {
 
     private final EmailService emailService;
 
-    @Value("${spring.mail.username}")
-    private String username;
-
-    public void gerarToken(String emailUsuario){
+    public void gerarToken(String emailUsuario) {
         Usuario usuario = usuarioRepository.findByEmail(emailUsuario).orElseThrow();
         TokenRecuperacaoSenha tokenRecuperacaoSenha = TokenRecuperacaoSenha.builder()
                 .dataExpiracao(LocalDateTime.now().plusMinutes(10))
@@ -40,6 +38,17 @@ public class RecuperacaoSenhaService {
                 Insira o código a seguir solicitado no painel de recuperação de senha:
                 """;
 
-        emailService.enviarEmail(username, "Cars for Sale: Código para recuperação de senha", mensagem + token.getCodigo() + ".");
+        emailService.enviarEmail(emailUsuario, "Cars for Sale: Código para recuperação de senha", mensagem + token.getCodigo() + ".");
+    }
+
+    public void validarToken(String codigo) {
+        TokenRecuperacaoSenha tokenRecuperacaoSenha = tokenRecuperacaoSenhaRepository
+                .findByCodigo(codigo)
+                .orElseThrow(() -> new EntityNotFoundException("Código de recuperação não encontrado!"));
+
+        if (tokenRecuperacaoSenha.getDataExpiracao().isBefore(LocalDateTime.now()) &&
+                tokenRecuperacaoSenha.isUtilizado()) {
+            throw new IllegalArgumentException("Código de recuperação inválido!");
+        }
     }
 }
