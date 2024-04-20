@@ -26,7 +26,7 @@ public class RecuperacaoSenhaService {
         Usuario usuario = usuarioRepository.findByEmail(emailUsuario).orElseThrow();
         TokenRecuperacaoSenha tokenRecuperacaoSenha = TokenRecuperacaoSenha.builder()
                 .dataExpiracao(LocalDateTime.now().plusMinutes(10))
-                .codigo(String.valueOf(new Random().nextInt(10000, 999999)))
+                .codigo(String.valueOf(new Random().nextInt(100000, 999999)))
                 .dataCriacao(LocalDateTime.now())
                 .usuario(usuario)
                 .build();

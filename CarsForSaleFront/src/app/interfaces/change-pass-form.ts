@@ -1,5 +1,5 @@
 export interface ChangePasswordForm {
     email: string,
-    codigo: string,
+    codigoRecuperacao: string,
     senhaNova: string
 }

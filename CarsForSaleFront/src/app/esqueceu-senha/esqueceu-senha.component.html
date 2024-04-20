@@ -41,15 +41,36 @@
 
     <h2>Redefina sua senha</h2>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Insira a nova senha</mat-label>
-      <input matInput type="password" formControlName="senha">
-    </mat-form-field>
+    <div class="campo-col">
+      <mat-form-field appearance="outline">
+        <mat-label>Insira sua senha</mat-label>
+        <input matInput type="password" formControlName="senha" [type]="hidePassword ? 'password' : 'text'" #senha>
+        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" >
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Repita a nova senha</mat-label>
-      <input matInput type="password" formControlName="confirmacaoSenha">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirme sua senha</mat-label>
+        <input matInput type="password" formControlName="confirmacaoSenha" [type]="hideConfirmPassword ? 'password' : 'text'" #confirmacaoSenha>
+        <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="requisitos-senha-box">
+      <p>Requisitos da senha:</p>
+      <ul class="requisitos-senha">
+
+        <li [class]="senhaPossuiTamanhoMinimo(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve conter no mínimo 8 caracteres</li>
+        <li [class]="senhaPossuiUmNumero(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um número</li>
+        <li [class]="senhaPossuiUmCaractereEspecial(senha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">Deve possuir no mínimo um caractere especial</li>
+        <li [class]="senhasCoincidem(senha.value, confirmacaoSenha.value) ? 'requisito-senha-cumprido' : 'requisito-senha-violado'">As senhas devem coincidir</li>
+      </ul>
+    </div>
 
     <button type="submit" [disabled]="formularioLogin.invalid">Submeter</button>
 
