@@ -4,7 +4,7 @@
       <li *ngFor="let imagem of anuncio.fotos; let i = index" [attr.data-target]="'#carouselExampleIndicators-' + anuncio.id" [attr.data-slide-to]="i" [class.active]="i === 0"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item" *ngFor="let imagem of anuncio.fotos; let i = index" [class.active]="i === 0">
+      <div class="carousel-item" *ngFor="let imagem of anuncio.fotos; let i = index" [class.active]="i === 0"  [class.anuncio-desativado]="!anuncio.ativo">
         <img class="d-block w-100" [src]="imagem" alt="Primeiro Slide">
       </div>
     </div>
@@ -19,7 +19,7 @@
   </div>
 
 
-  <div class="info">
+  <div class="info" [class.anuncio-desativado]="!anuncio.ativo">
         <div class="valor-box">
             <span class="valor">{{anuncio.valor | currency: "BRL"}}</span>
         </div>
@@ -41,6 +41,6 @@
 
     <div class="acoes" *ngIf="mostrarBotoesDeAcao">
       <button class="editar">Editar</button>
-      <button [ngClass]="anuncio.ativo ? ['alternar', 'ativo'] : 'alternar inativo'" (click)="alternarAtivacaoAnuncio(anuncio)" >{{anuncio.ativo ? "Desativar" : "Ativar"}}</button>
+      <button class="alternar" [ngClass]="anuncio.ativo ? 'ativo' : 'inativo'" (click)="alternarAtivacaoAnuncio(anuncio)" >{{anuncio.ativo ? "Desativar" : "Ativar"}} Anúncio</button>
   </div>
 </section>

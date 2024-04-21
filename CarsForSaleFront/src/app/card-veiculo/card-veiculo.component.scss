@@ -7,6 +7,10 @@ section {
     transition: all 0.25s;
 }
 
+.anuncio-desativado {
+    opacity: 0.5;
+}
+
 section:hover {
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .212);
 
@@ -73,16 +77,12 @@ img {
 }
 
 
-.acoes button[class="alternar inativo"] {
-    border-bottom-left-radius: 0px;
-}
-
-.acoes button[class="alternar ativo"] {
+.acoes button[class*="alternar"] {
     border-bottom-left-radius: 0px;
 }
 
 .ativo {
-    background-color: tomato;
+    background-color: red;
     color: white;
 }
 
