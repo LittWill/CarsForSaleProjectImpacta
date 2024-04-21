@@ -12,4 +12,6 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
 
     List<Anuncio> findByAnunciante(Usuario usuario);
 
+    List<Anuncio> findAllByAtivoIsTrue();
+
 }

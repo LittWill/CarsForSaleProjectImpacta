@@ -1,15 +1,12 @@
 package com.wnra.carsforsale.service;
 
-import com.google.api.gax.rpc.NotFoundException;
+import com.wnra.carsforsale.controller.anuncio.dto.SaidaAnuncioDTO;
 import com.wnra.carsforsale.domain.Anuncio;
-import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.handler.UsuarioLogadoHandler;
 import com.wnra.carsforsale.repository.AnuncioRepository;
-import com.wnra.carsforsale.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,15 +24,22 @@ public class AnuncioService {
     public Anuncio salvarAnuncio(Anuncio anuncio) {
         anuncio.setDataPublicacao(LocalDateTime.now());
         anuncio.setAnunciante(usuarioLogadoHandler.obter());
+        anuncio.setAtivo(true);
         return anuncioRepository.save(anuncio);
     }
 
-    public List<Anuncio> listarAnuncios() {
-        return anuncioRepository.findAll();
+    public List<Anuncio> listarAnunciosAtivos() {
+        return anuncioRepository.findAllByAtivoIsTrue();
     }
 
     public List<Anuncio> listarMeusAnuncios() {
         return anuncioRepository.findByAnunciante(usuarioLogadoHandler.obter());
     }
 
+    public Anuncio alternarAtivacaoAnuncio(String id) {
+        Anuncio anuncio = anuncioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Anuncio não encontrado!"));
+        anuncio.setAtivo(!anuncio.isAtivo());
+        anuncioRepository.save(anuncio);
+        return anuncio;
+    }
 }

@@ -38,4 +38,9 @@
             <span class="Localidade">{{anuncio.anunciante.endereco.cidade}} - {{anuncio.anunciante.endereco.estado}}</span>
         </div>
     </div>
+
+    <div class="acoes" *ngIf="mostrarBotoesDeAcao">
+      <button class="editar">Editar</button>
+      <button [ngClass]="anuncio.ativo ? ['alternar', 'ativo'] : 'alternar inativo'" (click)="alternarAtivacaoAnuncio(anuncio)" >{{anuncio.ativo ? "Desativar" : "Ativar"}}</button>
+  </div>
 </section>

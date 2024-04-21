@@ -14,7 +14,7 @@
 <ng-template #menu_logado>
 
     <a routerLink="/anunciar" routerLinkActive>Anunciar</a>
-    <a routerLink="/meus-anuncios" routerLinkActive>Meus Anúncios</a>
+    <a routerLink="/anuncios/meus" routerLinkActive>Meus Anúncios</a>
     <button mat-button [matMenuTriggerFor]="menu" class="usuarioLogado">
         <mat-icon>person_pin</mat-icon>
         <span>{{authService.obterUsuarioLogado().primeiroNome}}</span>

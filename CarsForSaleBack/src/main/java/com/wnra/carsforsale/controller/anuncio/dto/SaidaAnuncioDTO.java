@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public record SaidaAnuncioDTO(UUID id, VeiculoDto veiculo, BigDecimal valor, UsuarioDto anunciante,
                               Set<String> fotos, String descricao, LocalDateTime dataPublicacao,
-                              Anuncio.TipoNegociacao tipoNegociacao) implements Serializable {
+                              Anuncio.TipoNegociacao tipoNegociacao, boolean ativo) implements Serializable {
     /**
      * DTO for {@link com.wnra.carsforsale.domain.Veiculo}
      */

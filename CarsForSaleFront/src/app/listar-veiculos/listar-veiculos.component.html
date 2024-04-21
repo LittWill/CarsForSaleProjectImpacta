@@ -4,8 +4,12 @@
     </div>
     <div class="anuncios-container">
         <div class="anuncio" *ngFor="let anuncio of anuncios">
-    
-            <app-card-veiculo [anuncio]=anuncio></app-card-veiculo>
+
+            <app-card-veiculo [anuncio]=anuncio [mostrarBotoesDeAcao]="meusAnuncios"></app-card-veiculo>
         </div>
     </div>
 </ng-container>
+
+<ng-template>
+
+</ng-template>

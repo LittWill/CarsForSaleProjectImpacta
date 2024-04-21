@@ -3,14 +3,11 @@ package com.wnra.carsforsale.controller.anuncio;
 import com.wnra.carsforsale.controller.anuncio.dto.EntradaAnuncioDTO;
 import com.wnra.carsforsale.controller.anuncio.dto.SaidaAnuncioDTO;
 import com.wnra.carsforsale.domain.Anuncio;
-import com.wnra.carsforsale.domain.Usuario;
 import com.wnra.carsforsale.mapper.AnuncioMapper;
 import com.wnra.carsforsale.service.AnuncioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +28,8 @@ public class AnuncioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SaidaAnuncioDTO>> listarAnuncios() {
-        List<SaidaAnuncioDTO> anuncios = anuncioService.listarAnuncios().stream().map(anuncioMapper::paraSaidaDTO).toList();
+    public ResponseEntity<List<SaidaAnuncioDTO>> listarAnunciosAtivos() {
+        List<SaidaAnuncioDTO> anuncios = anuncioService.listarAnunciosAtivos().stream().map(anuncioMapper::paraSaidaDTO).toList();
         return ResponseEntity.ok(anuncios);
     }
 
@@ -40,6 +37,12 @@ public class AnuncioController {
     public ResponseEntity<List<SaidaAnuncioDTO>> listarMeusAnuncios() {
         List<SaidaAnuncioDTO> anuncios = anuncioService.listarMeusAnuncios().stream().map(anuncioMapper::paraSaidaDTO).toList();
         return ResponseEntity.ok(anuncios);
+    }
+
+    @PatchMapping("toggleActive/{id}")
+    public ResponseEntity<SaidaAnuncioDTO> alternarAtivacaoAnuncio(@PathVariable String id) {
+        SaidaAnuncioDTO saidaAnuncioDTO = anuncioMapper.paraSaidaDTO(anuncioService.alternarAtivacaoAnuncio(id));
+        return ResponseEntity.ok(saidaAnuncioDTO);
     }
 
 }

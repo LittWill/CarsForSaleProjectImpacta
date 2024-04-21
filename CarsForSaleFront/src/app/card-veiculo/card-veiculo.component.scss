@@ -9,7 +9,7 @@ section {
 
 section:hover {
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .212);
-  background-color: #f0f0f0;
+
 }
 
 img {
@@ -51,4 +51,48 @@ img {
 .carousel-item img {
    width: 300px;
    height: 175px;
+}
+
+.acoes {
+    display: flex;
+}
+
+.acoes button {
+    width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.25s;
+}
+
+.acoes button:hover {
+    opacity: 0.8;
+}
+
+
+.acoes button[class="alternar inativo"] {
+    border-bottom-left-radius: 0px;
+}
+
+.acoes button[class="alternar ativo"] {
+    border-bottom-left-radius: 0px;
+}
+
+.ativo {
+    background-color: tomato;
+    color: white;
+}
+
+.inativo {
+    background-color: green;
+    color: white;
+}
+
+.acoes button[class=editar] {
+    border-bottom-right-radius: 0px;
+    background-color: black;
+    color: white;
 }
