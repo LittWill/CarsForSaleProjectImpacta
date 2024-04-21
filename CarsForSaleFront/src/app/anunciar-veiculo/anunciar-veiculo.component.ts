@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -11,8 +11,9 @@ import { MarcaService } from '../services/marca.service';
 import { MarcaResponse } from '../interfaces/marca-response';
 import { AnuncioRequest } from '../interfaces/anuncio-request';
 import { AnuncioServiceService } from '../services/anuncio-service.service';
-import {AlertService} from "../services/alert.service";
-import {Router} from "@angular/router";
+import { AlertService } from "../services/alert.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AnuncioResponse } from '../interfaces/anuncio-response';
 
 @Component({
   selector: 'app-anunciar-veiculo',
@@ -26,14 +27,19 @@ export class AnunciarVeiculoComponent {
   formularioAnuncio: FormGroup
   options: MarcaResponse[] = [];
   anuncioRequest !: AnuncioRequest
-
   filteredOptions: Observable<MarcaResponse[]>;
 
+  anuncioId!: string;
+  anuncio!: AnuncioResponse
+
   constructor(private marcaService: MarcaService,
-              private formBuilder: FormBuilder,
-              private anuncioService: AnuncioServiceService,
-              private alertService : AlertService,
-              private router: Router) {
+    private formBuilder: FormBuilder,
+    private anuncioService: AnuncioServiceService,
+    private alertService: AlertService,
+    private router: Router, private route: ActivatedRoute) {
+
+    this.anuncioId = this.route.snapshot.params['id'];
+
 
     this.formularioAnuncio = this.formBuilder.group({
       marca: ['', [Validators.required]],
@@ -52,6 +58,8 @@ export class AnunciarVeiculoComponent {
       map(value => this._filter(value.nome || '')),
     );
 
+
+
     marcaService.obterMarcas().subscribe({
       next: (marcas: MarcaResponse[]) => {
         this.marcas = marcas
@@ -64,7 +72,6 @@ export class AnunciarVeiculoComponent {
     marcaService.obterMarcas().subscribe((marcaResponse: MarcaResponse[]) => {
       this.marcas = marcaResponse;
       this.options = this.marcas;
-      console.log(this.marcas);
     });
   }
 
@@ -86,7 +93,7 @@ export class AnunciarVeiculoComponent {
       const fileReader = new FileReader();
       const file = fileList.item(i);
       if (file) {
-        const result = await new Promise<string | ArrayBuffer | null >((resolve, reject) => {
+        const result = await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
           fileReader.onload = (event) => {
             resolve(event.target?.result!);
           };
@@ -123,9 +130,9 @@ export class AnunciarVeiculoComponent {
 
     this.anuncioService.salvarAnuncio(this.anuncioRequest).subscribe({
       next: (response: any) => {
-        this.alertService.alert("Seu anúncio foi publicado!", "Você será redirecionado para a página inicial!", "success").then(response => {
-          if (response.isConfirmed){
-            this.router.navigate(['/']);
+        this.alertService.alert("Seu anúncio foi publicado!", "Você será redirecionado para sua página de anúncios.", "success").then(response => {
+          if (response.isConfirmed) {
+            this.router.navigate(['/anuncios/meus']);
           }
         })
       },

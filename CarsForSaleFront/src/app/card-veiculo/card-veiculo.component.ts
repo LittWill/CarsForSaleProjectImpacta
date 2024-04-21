@@ -3,6 +3,7 @@ import { AnuncioServiceService } from '../services/anuncio-service.service';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../services/alert.service';
 import { AnuncioResponse } from '../interfaces/anuncio-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-veiculo',
@@ -19,7 +20,7 @@ export class CardVeiculoComponent {
   @Input()
   mostrarBotoesDeAcao: boolean = false;
 
-  constructor(private anuncioService: AnuncioServiceService, private alertService: AlertService) {
+  constructor(private anuncioService: AnuncioServiceService, private alertService: AlertService, private router: Router) {
 
   }
 
@@ -46,6 +47,10 @@ export class CardVeiculoComponent {
         })
       }
     })
+  }
+
+  irParaEdicaoDeAnuncio(anuncioId: string){
+    this.router.navigate(['/anunciar', anuncioId])
   }
 
 

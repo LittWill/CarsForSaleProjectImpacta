@@ -42,4 +42,8 @@ public class AnuncioService {
         anuncioRepository.save(anuncio);
         return anuncio;
     }
+
+    public Anuncio obterAnuncio(String id) {
+        return anuncioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Anúncio não encontrado!"));
+    }
 }

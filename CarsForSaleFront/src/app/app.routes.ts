@@ -12,6 +12,7 @@ export const routes: Routes = [
   {path: 'anuncios/meus', component: MeusAnunciosComponent, canActivate: [authGuard]},
   {path: '', redirectTo: '/anuncios', pathMatch: 'full'},
   {path: 'anunciar', component: AnunciarVeiculoComponent, canActivate: [authGuard]},
+  {path: 'anunciar/:id', component: AnunciarVeiculoComponent, canActivate: [authGuard]},
   {path: 'cadastro', component: CadastroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaComponent}

@@ -33,6 +33,11 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncios);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<SaidaAnuncioDTO> obterAnuncio(@PathVariable String id) {
+        return ResponseEntity.ok(anuncioMapper.paraSaidaDTO(anuncioService.obterAnuncio(id)));
+    }
+
     @GetMapping("me")
     public ResponseEntity<List<SaidaAnuncioDTO>> listarMeusAnuncios() {
         List<SaidaAnuncioDTO> anuncios = anuncioService.listarMeusAnuncios().stream().map(anuncioMapper::paraSaidaDTO).toList();

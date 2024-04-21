@@ -40,7 +40,7 @@
     </div>
 
     <div class="acoes" *ngIf="mostrarBotoesDeAcao">
-      <button class="editar">Editar</button>
+      <button class="editar" (click)="irParaEdicaoDeAnuncio(anuncio.id)">Editar</button>
       <button class="alternar" [ngClass]="anuncio.ativo ? 'ativo' : 'inativo'" (click)="alternarAtivacaoAnuncio(anuncio)" >{{anuncio.ativo ? "Desativar" : "Ativar"}} Anúncio</button>
   </div>
 </section>
