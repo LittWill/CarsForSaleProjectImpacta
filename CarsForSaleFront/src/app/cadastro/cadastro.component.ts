@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { MarcaResponse } from "../interfaces/marca-response";
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
-import { AnuncioRequest } from "../interfaces/anuncio-request";
-import { map, Observable, startWith } from "rxjs";
-import { AnuncioServiceService } from "../services/anuncio-service.service";
 import { AlertService } from "../services/alert.service";
 import { Router, RouterLink } from "@angular/router";
 import { MatFormField, MatFormFieldModule, MatLabel } from "@angular/material/form-field";
 import { MatIcon } from "@angular/material/icon";
 import { MatIconButton } from "@angular/material/button";
 import { MatInput } from "@angular/material/input";
-import { AuthRequest } from "../interfaces/auth-request";
 import { AuthService } from "../services/login.service";
 import { UsuarioForm } from '../interfaces/usuario-form';
 
@@ -42,15 +37,15 @@ export class CadastroComponent {
     private authService: AuthService, private alertService: AlertService, private router: Router) {
 
     this.formularioCadastro = this.formBuilder.group({
-      primeiroNome: ['Wilson', [Validators.required]],
-      ultimoNome: ['Almeida', [Validators.required]],
-      email: ['wilson@email.com', [Validators.required, Validators.email]],
-      senha: ['WilsonHawx123!', [Validators.required, Validators.minLength(8), this.senhaPossuiUmNumeroValidator()]],
-      confirmacaoSenha: ['WilsonHawx123!', [Validators.required, Validators.minLength(8)]],
-      cidade: ['Poá', [Validators.required]],
-      estado: ['SP', [Validators.required]],
-      endereco: ['Rua Guariba', [Validators.required]],
-      numero: ['110', [Validators.required]]
+      primeiroNome: ['', [Validators.required]],
+      ultimoNome: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required, Validators.minLength(8), this.senhaPossuiUmNumeroValidator()]],
+      confirmacaoSenha: ['', [Validators.required, Validators.minLength(8)]],
+      cidade: ['', [Validators.required]],
+      estado: ['', [Validators.required]],
+      endereco: ['', [Validators.required]],
+      numero: ['', [Validators.required]]
 
     }, {validators: this.senhasCoincidemValidator()});
   }

@@ -4,11 +4,12 @@ section {
     border: 1px solid #cccccc;
     color: #000000c7;
     font-family: "Inter", sans-serif;
-    transition: box-shadow 0.25s;
+    transition: all 0.25s;
 }
 
 section:hover {
-  box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, .212);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .212);
+  background-color: #f0f0f0;
 }
 
 img {
