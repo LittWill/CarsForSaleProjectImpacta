@@ -31,8 +31,9 @@
         }
         @else {
         @for (item of fotosString; track $index) {
-        <div class="image-preview">
+        <div class="image-preview" style="position: relative;">
           <img src={{item}} alt="" srcset="">
+          <button class="fechar"><mat-icon>close</mat-icon></button>
         </div>
         }
         }

@@ -1,19 +1,20 @@
 .container {
-    display: flex;
-    width: 50%;
+  display: flex;
+  width: 50%;
 }
+
 .form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    border: 1px solid gray;
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .form mat-form-field {
-    width: 100%;
+  width: 100%;
 }
 
 button {
@@ -41,6 +42,7 @@ button:enabled:hover {
 .image-container {
   display: flex;
   overflow-x: scroll;
+  margin-bottom: 10px;
 }
 
 .include-box {
@@ -53,6 +55,7 @@ button:enabled:hover {
   border: 1px dashed;
   text-align: center;
   margin-right: 10px;
+  padding: 20px;
 }
 
 .include-box svg path {
@@ -70,7 +73,27 @@ button:enabled:hover {
   display: flex;
 }
 
-.image-preview img {
-  width: 160px;
+.image-preview {
   margin-right: 10px;
 }
+
+.image-preview img {
+  width: 160px;
+}
+
+button.fechar {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin: 5px;
+  right: 0;
+  top: 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.image-preview:hover button.fechar {
+  display: flex;
+}
+
+
