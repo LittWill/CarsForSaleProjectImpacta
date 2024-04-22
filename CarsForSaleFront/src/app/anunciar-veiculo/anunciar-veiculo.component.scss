@@ -37,3 +37,40 @@ button:disabled {
 button:enabled:hover {
   opacity: 0.75;
 }
+
+.image-container {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.include-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 160px;
+  height: 122px;
+  border: 1px dashed;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.include-box svg path {
+  fill: #FF6126;
+}
+
+.include-box span {
+  font-size: 16px;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #FF6126;
+}
+
+.image-preview-box {
+  display: flex;
+}
+
+.image-preview img {
+  width: 160px;
+  margin-right: 10px;
+}

@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { startWith, map, Observable } from 'rxjs';
 import { MarcaService } from '../services/marca.service';
@@ -18,7 +18,7 @@ import { AnuncioResponse } from '../interfaces/anuncio-response';
 @Component({
   selector: 'app-anunciar-veiculo',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule, MatAutocompleteModule, AsyncPipe, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule, MatAutocompleteModule, AsyncPipe, ReactiveFormsModule, NgFor],
   templateUrl: './anunciar-veiculo.component.html',
   styleUrl: './anunciar-veiculo.component.scss'
 })
@@ -30,6 +30,9 @@ export class AnunciarVeiculoComponent {
 
   anuncioId!: string;
   anuncio!: AnuncioResponse
+
+  fotos!: File[];
+  fotosString !: string[];
 
   constructor(private marcaService: MarcaService,
     private formBuilder: FormBuilder,
@@ -98,6 +101,7 @@ export class AnunciarVeiculoComponent {
      this.anuncioService.obterAnuncio(this.anuncioId).subscribe({
       next: (anuncio: AnuncioResponse) => {
         this.anuncio = anuncio;
+        this.fotosString = anuncio.fotos;
         this.construirFormularioEdicao()
         
       },  
@@ -107,9 +111,14 @@ export class AnunciarVeiculoComponent {
     });
   }
 
-  private _filter(value: string): MarcaResponse[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(marca => marca.nome.toLowerCase().includes(filterValue));
+  incluirImagensV2(event: any){
+    
+    this.fotos = event.target.files
+    console.log(this.fotos)
+  }
+
+  criarUrlParaImagem(imagem: File){
+    return URL.createObjectURL(imagem);
   }
 
   uploadFile(event: any) {
