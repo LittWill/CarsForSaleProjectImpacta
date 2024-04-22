@@ -23,7 +23,7 @@ public record SaidaAnuncioDTO(UUID id, VeiculoDto veiculo, BigDecimal valor, Usu
         /**
          * DTO for {@link com.wnra.carsforsale.domain.Marca}
          */
-        public record MarcaDto(String nome, LocalDateTime dataCriacao, String foto) implements Serializable {
+        public record MarcaDto(String id, String nome, LocalDateTime dataCriacao, String foto) implements Serializable {
         }
     }
 

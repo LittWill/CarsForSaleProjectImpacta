@@ -20,6 +20,7 @@ interface VeiculoResponse {
 }
 
 interface MarcaResponse {
+    id: string;
     nome: string;
     dataCriacao: string; // você pode querer usar um tipo mais específico para datas em TypeScript
     foto: string;

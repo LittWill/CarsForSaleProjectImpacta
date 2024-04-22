@@ -44,6 +44,12 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncios);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Void> atualizarAnuncio(@PathVariable String id, @RequestBody EntradaAnuncioDTO entradaAnuncioDTO) {
+        anuncioService.atualizarAnuncio(id, anuncioMapper.paraEntidade(entradaAnuncioDTO));
+        return ResponseEntity.noContent().build();
+    }
+
     @PatchMapping("toggleActive/{id}")
     public ResponseEntity<SaidaAnuncioDTO> alternarAtivacaoAnuncio(@PathVariable String id) {
         SaidaAnuncioDTO saidaAnuncioDTO = anuncioMapper.paraSaidaDTO(anuncioService.alternarAtivacaoAnuncio(id));

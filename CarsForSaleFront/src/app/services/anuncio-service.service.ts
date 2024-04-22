@@ -12,6 +12,11 @@ export class AnuncioServiceService {
   constructor(private httpClient: HttpClient) {
   }
 
+  obterAnuncio(id: string) {
+    return this.httpClient.get<AnuncioResponse>(BackendEndpoints.HOST + "/anuncios/" + id);
+  }
+
+
   obterAnuncios() {
     return this.httpClient.get(BackendEndpoints.HOST + "/anuncios");
   }

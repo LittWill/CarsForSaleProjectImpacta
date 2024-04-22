@@ -24,10 +24,9 @@ import { AnuncioResponse } from '../interfaces/anuncio-response';
 })
 export class AnunciarVeiculoComponent {
   marcas: MarcaResponse[] = [];
-  formularioAnuncio: FormGroup
+  formularioAnuncio!: FormGroup
   options: MarcaResponse[] = [];
   anuncioRequest !: AnuncioRequest
-  filteredOptions: Observable<MarcaResponse[]>;
 
   anuncioId!: string;
   anuncio!: AnuncioResponse
@@ -38,9 +37,7 @@ export class AnunciarVeiculoComponent {
     private alertService: AlertService,
     private router: Router, private route: ActivatedRoute) {
 
-    this.anuncioId = this.route.snapshot.params['id'];
-
-
+    
     this.formularioAnuncio = this.formBuilder.group({
       marca: ['', [Validators.required]],
       modelo: ['', [Validators.required]],
@@ -53,13 +50,12 @@ export class AnunciarVeiculoComponent {
       fotos: [[], [Validators.required]]
     })
 
-    this.filteredOptions = this.formularioAnuncio.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value.nome || '')),
-    );
+    this.anuncioId = this.route.snapshot.params['id'];
 
-
-
+    if (this.anuncioId){
+      this.buscarAnuncioEConstruirFormularioEdicao();
+    }
+   
     marcaService.obterMarcas().subscribe({
       next: (marcas: MarcaResponse[]) => {
         this.marcas = marcas
@@ -72,6 +68,42 @@ export class AnunciarVeiculoComponent {
     marcaService.obterMarcas().subscribe((marcaResponse: MarcaResponse[]) => {
       this.marcas = marcaResponse;
       this.options = this.marcas;
+    });
+  }
+
+  private construirFormularioEdicao() {
+    let marca = this.anuncio.veiculo.marca.id;
+    let modelo = this.anuncio.veiculo.modelo;
+    let quilometragem = this.anuncio.veiculo.kmRodados;
+    let ano = this.anuncio.veiculo.ano;
+    let combustivel = this.anuncio.veiculo.tipoCombustivel;
+    let cor = this.anuncio.veiculo.cor;
+    let valor = this.anuncio.valor;
+    let tipoNegociacao = this.anuncio.tipoNegociacao;
+
+    this.formularioAnuncio = this.formBuilder.group({
+      marca: [marca, [Validators.required]],
+      modelo: [modelo, [Validators.required]],
+      quilometragem: [quilometragem, [Validators.required]],
+      ano: [ano, [Validators.required]],
+      combustivel: [combustivel, [Validators.required]],
+      cor: [cor, [Validators.required]],
+      valor: [valor, [Validators.required]],
+      tipoNegociacao: [tipoNegociacao, [Validators.required]],
+      fotos: [[], [Validators.required]]
+    });
+  }
+
+   private buscarAnuncioEConstruirFormularioEdicao() {
+     this.anuncioService.obterAnuncio(this.anuncioId).subscribe({
+      next: (anuncio: AnuncioResponse) => {
+        this.anuncio = anuncio;
+        this.construirFormularioEdicao()
+        
+      },  
+      error: () => {
+        this.alertService.alert("Houve um erro!", "Não foi possível estabelecer comunicação com o servidor!", 'error');
+      }
     });
   }
 

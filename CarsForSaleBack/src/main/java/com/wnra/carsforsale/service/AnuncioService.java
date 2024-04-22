@@ -46,4 +46,10 @@ public class AnuncioService {
     public Anuncio obterAnuncio(String id) {
         return anuncioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Anúncio não encontrado!"));
     }
+
+    public void atualizarAnuncio(String id, Anuncio anuncioAtualizado){
+        obterAnuncio(id);
+        anuncioAtualizado.setId(id);
+        anuncioRepository.save(anuncioAtualizado);
+    }
 }
