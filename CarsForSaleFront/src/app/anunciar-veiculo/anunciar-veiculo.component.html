@@ -22,26 +22,14 @@
       </label>
 
       <div class="image-preview-box">
-        @if(fotos) {
         @for (item of fotos; track $index) {
         <div class="image-preview">
-          <img src={{criarUrlParaImagem(item)}} alt="" srcset="">
-        </div>
-        }
-        }
-        @else {
-        @for (item of fotosString; track $index) {
-        <div class="image-preview" style="position: relative;">
           <img src={{item}} alt="" srcset="">
-          <button class="fechar"><mat-icon>close</mat-icon></button>
+          <button class="fechar" (click)="removerImagem($event)" type="button"><mat-icon>close</mat-icon></button>
         </div>
         }
-        }
-
       </div>
     </div>
-
-
 
     <mat-form-field>
       <mat-label>Marca</mat-label>
@@ -107,8 +95,6 @@
         <mat-option value="AMBOS">Ambos</mat-option>
       </mat-select>
     </mat-form-field>
-
-    <input type="file" multiple (change)="uploadFile($event)" formControlName="fotos" accept="image/*">
 
     <button type="submit" [disabled]="formularioAnuncio.invalid">Anunciar</button>
 

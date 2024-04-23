@@ -48,8 +48,11 @@ public class AnuncioService {
     }
 
     public void atualizarAnuncio(String id, Anuncio anuncioAtualizado){
-        obterAnuncio(id);
+        Anuncio anuncio = obterAnuncio(id);
         anuncioAtualizado.setId(id);
+        anuncioAtualizado.setAnunciante(anuncio.getAnunciante());
+        anuncioAtualizado.setDataPublicacao(anuncio.getDataPublicacao());
+        anuncioAtualizado.setAtivo(anuncio.isAtivo());
         anuncioRepository.save(anuncioAtualizado);
     }
 }

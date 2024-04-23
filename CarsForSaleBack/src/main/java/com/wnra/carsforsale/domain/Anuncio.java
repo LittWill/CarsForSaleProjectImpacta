@@ -19,7 +19,7 @@ public class Anuncio {
     @Id
     private String id;
 
-    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 

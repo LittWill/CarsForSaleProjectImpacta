@@ -29,6 +29,10 @@ export class AnuncioServiceService {
     return this.httpClient.post(BackendEndpoints.HOST + "/anuncios", formularioAnuncio);
   }
 
+  atualizarAnuncio(id:string, formularioAnuncio: AnuncioRequest) {
+    return this.httpClient.put(BackendEndpoints.HOST + "/anuncios/" + id, formularioAnuncio);
+  }
+
   alternarAtivacaoAnuncio(id: string) {
     return this.httpClient.patch<AnuncioResponse>(BackendEndpoints.HOST + "/anuncios/toggleActive/" + id, null);
   }

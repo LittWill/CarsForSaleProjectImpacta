@@ -31,8 +31,7 @@ export class AnunciarVeiculoComponent {
   anuncioId!: string;
   anuncio!: AnuncioResponse
 
-  fotos!: File[];
-  fotosString !: string[];
+  fotos: any[] = [];
 
   constructor(private marcaService: MarcaService,
     private formBuilder: FormBuilder,
@@ -40,7 +39,7 @@ export class AnunciarVeiculoComponent {
     private alertService: AlertService,
     private router: Router, private route: ActivatedRoute) {
 
-    
+
     this.formularioAnuncio = this.formBuilder.group({
       marca: ['', [Validators.required]],
       modelo: ['', [Validators.required]],
@@ -49,22 +48,21 @@ export class AnunciarVeiculoComponent {
       combustivel: ['', [Validators.required]],
       cor: ['', [Validators.required]],
       valor: ['', [Validators.required]],
-      tipoNegociacao: ['', [Validators.required]],
-      fotos: [[], [Validators.required]]
+      tipoNegociacao: ['', [Validators.required]]
     })
 
     this.anuncioId = this.route.snapshot.params['id'];
 
-    if (this.anuncioId){
+    if (this.anuncioId) {
       this.buscarAnuncioEConstruirFormularioEdicao();
     }
-   
+
     marcaService.obterMarcas().subscribe({
       next: (marcas: MarcaResponse[]) => {
         this.marcas = marcas
       },
       error: (error) => {
-        this.alertService.alert("Houve um erro!", "Não foi possível estabelecer comunuicação com o servidor", "error")
+        this.alertService.alert("Houve um erro!", "Não foi possível estabelecer comunicação com o servidor", "error")
       }
     })
 
@@ -92,39 +90,39 @@ export class AnunciarVeiculoComponent {
       combustivel: [combustivel, [Validators.required]],
       cor: [cor, [Validators.required]],
       valor: [valor, [Validators.required]],
-      tipoNegociacao: [tipoNegociacao, [Validators.required]],
-      fotos: [[], [Validators.required]]
+      tipoNegociacao: [tipoNegociacao, [Validators.required]]
     });
   }
 
-   private buscarAnuncioEConstruirFormularioEdicao() {
-     this.anuncioService.obterAnuncio(this.anuncioId).subscribe({
+  private buscarAnuncioEConstruirFormularioEdicao() {
+    this.anuncioService.obterAnuncio(this.anuncioId).subscribe({
       next: (anuncio: AnuncioResponse) => {
         this.anuncio = anuncio;
-        this.fotosString = anuncio.fotos;
+        this.fotos.push(...anuncio.fotos)
         this.construirFormularioEdicao()
-        
-      },  
+
+      },
       error: () => {
         this.alertService.alert("Houve um erro!", "Não foi possível estabelecer comunicação com o servidor!", 'error');
       }
     });
   }
 
-  incluirImagensV2(event: any){
-    
-    this.fotos = event.target.files
-    console.log(this.fotos)
+  removerImagem(event: any) {
+    this.fotos.splice(this.fotos.indexOf(event.target.parentElement.parentElement.children[0].src), 1)
   }
 
-  criarUrlParaImagem(imagem: File){
+  incluirImagensV2(event: any) {
+    this.encodeImages(event);
+  }
+
+  criarUrlParaImagem(imagem: File) {
     return URL.createObjectURL(imagem);
   }
 
-  uploadFile(event: any) {
+  encodeImages(event: any) {
     this.encodeImagemFileAsUrl(event.target.files).then((result) => {
-      this.formularioAnuncio.value.fotos = result;
-      console.log(this.formularioAnuncio.value.fotos)
+      this.fotos.push(...result)
     });
   }
 
@@ -152,11 +150,12 @@ export class AnunciarVeiculoComponent {
 
 
   submeter() {
+
     this.anuncioRequest = {
       descricao: "teste",
       tipoNegociacao: this.formularioAnuncio.value.tipoNegociacao,
       valor: this.formularioAnuncio.value.valor,
-      fotos: this.formularioAnuncio.value.fotos,
+      fotos: this.fotos,
       veiculo: {
         marca: this.formularioAnuncio.value.marca,
         modelo: this.formularioAnuncio.value.modelo,
@@ -167,22 +166,42 @@ export class AnunciarVeiculoComponent {
       }
     }
 
+    if (this.anuncio) {
+      this.anuncioService.atualizarAnuncio(this.anuncioId, this.anuncioRequest).subscribe({
+        next: (response: any) => {
+          this.alertService.alert("Seu anúncio foi atualizado!", "Você será redirecionado para sua página de anúncios.", "success").then(response => {
+            if (response.isConfirmed) {
+              this.router.navigate(['/anuncios/meus']);
+            }
+          })
+        },
+        error: () => {
+          this.alertService.alert("Houve um erro!", "Não foi possível estabelecer conexão com o servidor!", "error").then(response => {
+            console.log(response.isConfirmed);
+          })
+        }
+      });
+    }
+    else {
+      this.anuncioService.salvarAnuncio(this.anuncioRequest).subscribe({
+        next: (response: any) => {
+          this.alertService.alert("Seu anúncio foi publicado!", "Você será redirecionado para sua página de anúncios.", "success").then(response => {
+            if (response.isConfirmed) {
+              this.router.navigate(['/anuncios/meus']);
+            }
+          })
+        },
+        error: () => {
+          this.alertService.alert("Houve um erro!", "Não foi possível estabelecer conexão com o servidor!", "error").then(response => {
+            console.log(response.isConfirmed);
+          })
+        }
+      });
+    }
+
     console.log(this.anuncioRequest);
 
-    this.anuncioService.salvarAnuncio(this.anuncioRequest).subscribe({
-      next: (response: any) => {
-        this.alertService.alert("Seu anúncio foi publicado!", "Você será redirecionado para sua página de anúncios.", "success").then(response => {
-          if (response.isConfirmed) {
-            this.router.navigate(['/anuncios/meus']);
-          }
-        })
-      },
-      error: () => {
-        this.alertService.alert("Houve um erro!", "Não foi possível estabelecer conexão com o servidor!", "error").then(response => {
-          console.log(response.isConfirmed);
-        })
-      }
-    });
+
   }
 
 }
