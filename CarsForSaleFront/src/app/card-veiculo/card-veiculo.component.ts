@@ -34,8 +34,8 @@ export class CardVeiculoComponent {
       mensagemSucesso = "Seu anúncio foi desativado com sucesso!"
     }
 
-    this.alertService.alert(titulo, mensagem, 'warning', true).then(isConfirmed => {
-      if (isConfirmed){
+    this.alertService.alert(titulo, mensagem, 'warning', true).then(result => {
+      if (result.isConfirmed){
         this.anuncioService.alternarAtivacaoAnuncio(anuncio.id).subscribe({
           next: (anuncioAtualizado: AnuncioResponse) => {
             anuncio.ativo = anuncioAtualizado.ativo;
