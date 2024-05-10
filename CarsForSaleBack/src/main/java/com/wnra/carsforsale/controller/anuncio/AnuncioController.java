@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,23 @@ public class AnuncioController {
     @GetMapping
     public ResponseEntity<List<SaidaAnuncioDTO>> listarAnunciosAtivos() {
         List<SaidaAnuncioDTO> anuncios = anuncioService.listarAnunciosAtivos().stream().map(anuncioMapper::paraSaidaDTO).toList();
+        return ResponseEntity.ok(anuncios);
+    }
+
+    @GetMapping("filtrar")
+    public ResponseEntity<List<SaidaAnuncioDTO>> filtrarAnunciosAtivos(@RequestParam(required = false) String modelo,
+                                                                       @RequestParam(required = false) String marca,
+                                                                       @RequestParam(required = false) BigDecimal valorMin,
+                                                                       @RequestParam(required = false) BigDecimal valorMax,
+                                                                       @RequestParam(required = false) String tipoNegociacao,
+                                                                       @RequestParam(required = false) Double kmMin,
+                                                                       @RequestParam(required = false) Double kmMax,
+                                                                       @RequestParam(required = false) String combustivel,
+                                                                       @RequestParam(required = false) String cor,
+                                                                       @RequestParam(required = false) String anoMin,
+                                                                       @RequestParam(required = false) String anoMax) {
+        List<SaidaAnuncioDTO> anuncios = anuncioService.filtrarAnuncios(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, combustivel, cor, anoMin, anoMax)
+                .stream().map(anuncioMapper::paraSaidaDTO).toList();
         return ResponseEntity.ok(anuncios);
     }
 

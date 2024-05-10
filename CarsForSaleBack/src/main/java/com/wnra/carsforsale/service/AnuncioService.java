@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -54,5 +55,11 @@ public class AnuncioService {
         anuncioAtualizado.setDataPublicacao(anuncio.getDataPublicacao());
         anuncioAtualizado.setAtivo(anuncio.isAtivo());
         anuncioRepository.save(anuncioAtualizado);
+    }
+
+    public List<Anuncio> filtrarAnuncios(String modelo, String marca, BigDecimal valorMin,
+                                         BigDecimal valorMax, String tipoNegociacao, Double kmMin,
+                                         Double kmMax, String tipoCombustivel, String anoMin, String anoMax, String cor){
+        return anuncioRepository.findAllByFilters(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, tipoCombustivel, anoMin, anoMax, cor);
     }
 }
