@@ -17,7 +17,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
     List<Anuncio> findAllByAtivoIsTrue();
     @Query("SELECT a FROM Anuncio a " +
             "WHERE (:modelo IS NULL OR a.veiculo.modelo LIKE %:modelo%) " +
-            "AND (:marca IS NULL OR a.veiculo.marca.nome LIKE %:marca%) " +
+            "OR (:marca IS NULL OR a.veiculo.marca.nome LIKE %:marca%) " +
             "AND (:valorMin IS NULL OR a.valor >= :valorMin) " +
             "AND (:valorMax IS NULL OR a.valor <= :valorMax) " +
             "AND (:tipoNegociacao IS NULL OR a.tipoNegociacao = :tipoNegociacao) " +

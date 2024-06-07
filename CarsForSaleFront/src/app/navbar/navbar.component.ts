@@ -1,21 +1,27 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/login.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertService } from '../services/alert.service';
 import {MatMenuModule} from '@angular/material/menu'
+import { FormsModule } from '@angular/forms';
+import { AnuncioServiceService } from '../services/anuncio-service.service';
+import { AnuncioResponse } from '../interfaces/anuncio-response';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf, MatIconModule, MatMenuModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf, MatIconModule, MatMenuModule, FormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
 
-  constructor(public authService : AuthService, private router: Router, private alertService: AlertService){
+  busca: string = '';
+
+  constructor(public authService : AuthService, private router: Router, private alertService: AlertService, private searchService : SearchService){
     
   }
 
@@ -27,6 +33,11 @@ export class NavbarComponent {
         this.authService.logout();
       }
     });
+  }
+
+  buscar(){
+    this.searchService.setSearchText(this.busca);
+    this.busca = '';
   }
 
 }

@@ -1,15 +1,110 @@
 <ng-container *ngIf="!spinnerService.isLoading$.getValue()">
-    <div class="warning-container" *ngIf="anuncios.length === 0">
-        <h1>Nenhum anúncio encontrado!</h1>
-    </div>
-    <div class="anuncios-container">
-        <div class="anuncio" *ngFor="let anuncio of anuncios">
+    <div class="container">
 
-            <app-card-veiculo [anuncio]=anuncio [mostrarBotoesDeAcao]="meusAnuncios"></app-card-veiculo>
+
+        <div class="filtros">
+
+            <form [formGroup]="formularioFiltragem">
+                <div class="warning-container" *ngIf="anuncios.length === 0; else anunciosEncontrados">
+                    <h1>Nenhum anúncio correspondente à sua pesquisa foi encontrado!</h1>
+                </div>
+                <div class="grupo">
+                    <mat-form-field floatLabel="always">
+                        <mat-label>Valor Mínimo</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0"
+                            formControlName="valorMinimo">
+                        <span matTextPrefix>R$&nbsp;</span>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always">
+                        <mat-label>Valor Máximo</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0"
+                            formControlName="valorMaximo">
+                        <span matTextPrefix>R$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+
+                <div class="grupo">
+                    <mat-form-field floatLabel="always">
+                        <mat-label>Quilometragem Mínima</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0"
+                            formControlName="quilometragemMinima">
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always">
+                        <mat-label>Quilometragem Máxima</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0"
+                            formControlName="quilometragemMaxima">
+                    </mat-form-field>
+                </div>
+
+                <div class="grupo">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ano Mínimo</mat-label>
+                        <input matInput formControlName="anoMinimo">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ano Máximo</mat-label>
+                        <input matInput formControlName="anoMaximo">
+                    </mat-form-field>
+                </div>
+
+                <div class="grupo">
+                    <mat-form-field>
+                        <mat-label>Cor</mat-label>
+                        <mat-select formControlName="cor">
+                            <mat-option value="Preto">Preto</mat-option>
+                            <mat-option value="Branco">Branco</mat-option>
+                            <mat-option value="Cinza">Cinza</mat-option>
+                            <mat-option value="Prata">Prata</mat-option>
+                            <mat-option value="Amarelo">Amarelo</mat-option>
+                            <mat-option value="Azul">Azul</mat-option>
+                            <mat-option value="Verde">Verde</mat-option>
+                            <mat-option value="Vermelho">Vermelho</mat-option>
+                            <mat-option value="Laranja">Laranja</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Combustível</mat-label>
+                        <mat-select formControlName="combustivel">
+                            <mat-option value="GASOLINA">Gasolina</mat-option>
+                            <mat-option value="FLEX">Flex</mat-option>
+                            <mat-option value="DIESEL">Diesel</mat-option>
+                            <mat-option value="HIBRIDO">Híbrido</mat-option>
+                            <mat-option value="ELETRICO">Elétrico</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="grupo">
+
+                    <mat-form-field>
+                        <mat-label>Desejo</mat-label>
+                        <mat-select formControlName="tipoNegociacao">
+                            <mat-option value="VENDA">Venda</mat-option>
+                            <mat-option value="TROCA">Troca</mat-option>
+                            <mat-option value="AMBOS">Ambos</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="button-box">
+                        <button>Aplicar Filtros</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="anuncios-container">
+                <div class="anuncio" *ngFor="let anuncio of anuncios">
+                    <app-card-veiculo [anuncio]=anuncio [mostrarBotoesDeAcao]="meusAnuncios"></app-card-veiculo>
+                </div>
+            </div>
         </div>
-    </div>
-</ng-container>
 
-<ng-template>
-
-</ng-template>
+        <ng-template #anunciosEncontrados>
+            <div class="filtragem-container">
+                <div class="anunciosEncontrados">
+                    <h1>Exibindo {{anuncios.length}} resultado(s)</h1>
+                    <button (click)="removerFiltros()" *ngIf="filtrosAplicados">Limpar filtros</button>
+                </div>
+            </div>
+        </ng-template>

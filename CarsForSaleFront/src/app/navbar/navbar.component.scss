@@ -30,6 +30,16 @@ nav button {
     border: none;
 }
 
+.search {
+    height: 60px;
+    background-color: white !important;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: 1px solid rgb(201, 200, 200) !important;
+    cursor: pointer;
+}
+
 .home {
     word-spacing: -5px;
     padding: 30px;
@@ -46,6 +56,8 @@ nav button {
 input {
     height: 60px;
     border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     border: none;
     width: 100%;
     font-size: 18px;
@@ -55,6 +67,7 @@ input:focus {
     outline: #ff6126;
     outline-style: auto;
 }
+
 
 .verticalLine {
     border: 1px solid #fffdfc;
@@ -90,7 +103,7 @@ input:focus {
     transition: color 250ms;
 }
 
-.usuarioLogado:hover  {
+.usuarioLogado:hover {
     color: #c5c5c5;
 }
 

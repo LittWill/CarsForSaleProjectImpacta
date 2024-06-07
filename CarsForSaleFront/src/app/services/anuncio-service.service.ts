@@ -21,6 +21,10 @@ export class AnuncioServiceService {
     return this.httpClient.get(BackendEndpoints.HOST + "/anuncios");
   }
 
+  obterAnunciosBuscaSimples(busca: string){
+    return this.httpClient.get<AnuncioResponse[]>(BackendEndpoints.HOST + "/anuncios/filtrar" + `?marca=${busca}&modelo=${busca}`);
+  }
+
   obterMeusAnuncios() {
     return this.httpClient.get<AnuncioResponse>(BackendEndpoints.HOST + "/anuncios/me");
   }

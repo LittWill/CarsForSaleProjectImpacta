@@ -1,7 +1,9 @@
 <nav>
     <div class="nav-start">
         <a routerLink="/anuncios" class="home">CARS FOR SALE</a>
-        <input type="text" name="pesquisa-carros" id="pesquisa-carros" placeholder="Busque um modelo, marca etc.">
+        <input type="text" name="pesquisa-carros" id="pesquisa-carros" placeholder="Busque um modelo, marca etc." (keyup.enter)="buscar()" [(ngModel)]="busca">
+        <button type="button" class="search" (click)="buscar()"><img src="assets/images/glass.png" alt=""></button>
+        
 
     </div>
     <div class="verticalLine"></div>
