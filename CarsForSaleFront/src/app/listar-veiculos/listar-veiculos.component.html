@@ -4,7 +4,7 @@
 
         <div class="filtros">
 
-            <form [formGroup]="formularioFiltragem">
+            <form [formGroup]="formularioFiltragem" (submit)="aplicarFiltros()">
                 <div class="warning-container" *ngIf="anuncios.length === 0; else anunciosEncontrados">
                     <h1>Nenhum anúncio correspondente à sua pesquisa foi encontrado!</h1>
                 </div>

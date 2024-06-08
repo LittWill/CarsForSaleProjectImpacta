@@ -3,6 +3,7 @@ package com.wnra.carsforsale.controller.anuncio;
 import com.wnra.carsforsale.controller.anuncio.dto.EntradaAnuncioDTO;
 import com.wnra.carsforsale.controller.anuncio.dto.SaidaAnuncioDTO;
 import com.wnra.carsforsale.domain.Anuncio;
+import com.wnra.carsforsale.domain.Veiculo;
 import com.wnra.carsforsale.mapper.AnuncioMapper;
 import com.wnra.carsforsale.service.AnuncioService;
 import lombok.RequiredArgsConstructor;
@@ -39,14 +40,14 @@ public class AnuncioController {
                                                                        @RequestParam(required = false) String marca,
                                                                        @RequestParam(required = false) BigDecimal valorMin,
                                                                        @RequestParam(required = false) BigDecimal valorMax,
-                                                                       @RequestParam(required = false) String tipoNegociacao,
+                                                                       @RequestParam(required = false) Anuncio.TipoNegociacao tipoNegociacao,
                                                                        @RequestParam(required = false) Double kmMin,
                                                                        @RequestParam(required = false) Double kmMax,
-                                                                       @RequestParam(required = false) String combustivel,
+                                                                       @RequestParam(required = false) Veiculo.TipoCombustivel combustivel,
                                                                        @RequestParam(required = false) String cor,
                                                                        @RequestParam(required = false) String anoMin,
                                                                        @RequestParam(required = false) String anoMax) {
-        List<SaidaAnuncioDTO> anuncios = anuncioService.filtrarAnuncios(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, combustivel, cor, anoMin, anoMax)
+        List<SaidaAnuncioDTO> anuncios = anuncioService.filtrarAnuncios(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, combustivel, anoMin, anoMax, cor)
                 .stream().map(anuncioMapper::paraSaidaDTO).toList();
         return ResponseEntity.ok(anuncios);
     }

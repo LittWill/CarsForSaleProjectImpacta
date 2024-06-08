@@ -2,6 +2,7 @@ package com.wnra.carsforsale.repository;
 
 import com.wnra.carsforsale.domain.Anuncio;
 import com.wnra.carsforsale.domain.Usuario;
+import com.wnra.carsforsale.domain.Veiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
 
     List<Anuncio> findAllByAtivoIsTrue();
     @Query("SELECT a FROM Anuncio a " +
-            "WHERE (:modelo IS NULL OR a.veiculo.modelo LIKE %:modelo%) " +
-            "OR (:marca IS NULL OR a.veiculo.marca.nome LIKE %:marca%) " +
+            "WHERE (:modelo IS NULL OR a.veiculo.modelo LIKE %:modelo% OR (:marca IS NULL OR a.veiculo.marca.nome LIKE %:marca%)) " +
             "AND (:valorMin IS NULL OR a.valor >= :valorMin) " +
             "AND (:valorMax IS NULL OR a.valor <= :valorMax) " +
             "AND (:tipoNegociacao IS NULL OR a.tipoNegociacao = :tipoNegociacao) " +
@@ -34,10 +34,10 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
                                    String marca,
                                    BigDecimal valorMin,
                                    BigDecimal valorMax,
-                                   String tipoNegociacao,
+                                   Anuncio.TipoNegociacao tipoNegociacao,
                                    Double kmMin,
                                    Double kmMax,
-                                   String tipoCombustivel,
+                                   Veiculo.TipoCombustivel tipoCombustivel,
                                    String anoMin,
                                    String anoMax,
                                    String cor

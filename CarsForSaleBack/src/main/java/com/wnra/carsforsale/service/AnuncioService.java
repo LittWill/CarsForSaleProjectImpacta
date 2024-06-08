@@ -2,6 +2,7 @@ package com.wnra.carsforsale.service;
 
 import com.wnra.carsforsale.controller.anuncio.dto.SaidaAnuncioDTO;
 import com.wnra.carsforsale.domain.Anuncio;
+import com.wnra.carsforsale.domain.Veiculo;
 import com.wnra.carsforsale.handler.UsuarioLogadoHandler;
 import com.wnra.carsforsale.repository.AnuncioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -58,8 +59,8 @@ public class AnuncioService {
     }
 
     public List<Anuncio> filtrarAnuncios(String modelo, String marca, BigDecimal valorMin,
-                                         BigDecimal valorMax, String tipoNegociacao, Double kmMin,
-                                         Double kmMax, String tipoCombustivel, String anoMin, String anoMax, String cor){
+                                         BigDecimal valorMax, Anuncio.TipoNegociacao tipoNegociacao, Double kmMin,
+                                         Double kmMax, Veiculo.TipoCombustivel tipoCombustivel, String anoMin, String anoMax, String cor){
         return anuncioRepository.findAllByFilters(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, tipoCombustivel, anoMin, anoMax, cor);
     }
 }

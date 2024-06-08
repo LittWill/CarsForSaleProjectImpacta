@@ -41,15 +41,15 @@ export class ListarVeiculosComponent implements OnInit {
   }
   ngOnInit(): void {
     this.formularioFiltragem = this.formBuilder.group({
-      valorMinimo: [0],
-      valorMaximo: [0],
-      quilometragemMinima: [0],
-      quilometragemMaxima: [0],
-      anoMinimo: [''],
-      anoMaximo: [''],
-      cor: [''],
-      combustivel: [''],
-      tipoNegociacao: [''],
+      valorMinimo: [null],
+      valorMaximo: [null],
+      quilometragemMinima: [null],
+      quilometragemMaxima: [null],
+      anoMinimo: [null],
+      anoMaximo: [null],
+      cor: [null],
+      combustivel: [null],
+      tipoNegociacao: [null],
     });
     this.searchService.getSearchText().subscribe(searchText => {
       if (searchText) {
@@ -57,7 +57,6 @@ export class ListarVeiculosComponent implements OnInit {
           next: (anuncios: AnuncioResponse[]) => {
             this.anuncios = anuncios
             this.filtrosAplicados = true;
-            this.searchService.setSearchText('');
           }
         })
       }
@@ -72,6 +71,32 @@ export class ListarVeiculosComponent implements OnInit {
   removerFiltros() {
     this.buscarTodosAnuncios()
     this.filtrosAplicados = false;
+    this.searchService.setSearchText('');
+  }
+
+  aplicarFiltros() {
+    const formValues = this.formularioFiltragem.value;
+    console.log(formValues)
+    this.searchService.getSearchText().subscribe(searchText => {
+      this.anuncioService.obterAnunciosFiltro(
+        searchText,
+        formValues.valorMinimo,
+        formValues.valorMaximo,
+        formValues.tipoNegociacao,
+        formValues.quilometragemMinima,
+        formValues.quilometragemMaxima,
+        formValues.combustivel,
+        formValues.cor,
+        formValues.anoMinimo,
+        formValues.anoMaximo
+      ).subscribe({
+        next: (anunciosFiltrados: AnuncioResponse[]) => {
+          this.anuncios = anunciosFiltrados
+          console.log(anunciosFiltrados)
+        }
+      })
+    })
+
   }
 
   buscarTodosAnuncios() {
