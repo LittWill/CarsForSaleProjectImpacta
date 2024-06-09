@@ -1,13 +1,10 @@
 <ng-container *ngIf="!spinnerService.isLoading$.getValue()">
-    <div class="container">
+    <div class="cont">
 
 
         <div class="filtros">
-
+            
             <form [formGroup]="formularioFiltragem" (submit)="aplicarFiltros()">
-                <div class="warning-container" *ngIf="anuncios.length === 0; else anunciosEncontrados">
-                    <h1>Nenhum anúncio correspondente à sua pesquisa foi encontrado!</h1>
-                </div>
                 <div class="grupo">
                     <mat-form-field floatLabel="always">
                         <mat-label>Valor Mínimo</mat-label>
@@ -80,8 +77,8 @@
                     <mat-form-field>
                         <mat-label>Desejo</mat-label>
                         <mat-select formControlName="tipoNegociacao">
-                            <mat-option value="VENDA">Venda</mat-option>
-                            <mat-option value="TROCA">Troca</mat-option>
+                            <mat-option value="VENDA">Comprar</mat-option>
+                            <mat-option value="TROCA">Trocar</mat-option>
                             <mat-option value="AMBOS">Ambos</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -93,12 +90,15 @@
                 </div>
             </form>
 
-            <div class="anuncios-container">
-                <div class="anuncio" *ngFor="let anuncio of anuncios">
-                    <app-card-veiculo [anuncio]=anuncio [mostrarBotoesDeAcao]="meusAnuncios"></app-card-veiculo>
-                </div>
+        </div>
+
+
+        <div class="anuncios-container" *ngIf="anuncios.length > 0; else avisoAnuncioNaoEncontrado">
+            <div class="anuncio" *ngFor="let anuncio of anuncios">
+                <app-card-veiculo [anuncio]=anuncio [mostrarBotoesDeAcao]="meusAnuncios"></app-card-veiculo>
             </div>
         </div>
+
 
         <ng-template #anunciosEncontrados>
             <div class="filtragem-container">
@@ -106,5 +106,11 @@
                     <h1>Exibindo {{anuncios.length}} resultado(s)</h1>
                     <button (click)="removerFiltros()" *ngIf="filtrosAplicados">Limpar filtros</button>
                 </div>
+            </div>
+        </ng-template>
+
+        <ng-template #avisoAnuncioNaoEncontrado>
+            <div class="warning-container">
+                <h1>Nenhum anúncio correspondente à sua pesquisa foi encontrado!</h1>
             </div>
         </ng-template>

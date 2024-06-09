@@ -20,7 +20,10 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
             "WHERE (:modelo IS NULL OR a.veiculo.modelo LIKE %:modelo% OR (:marca IS NULL OR a.veiculo.marca.nome LIKE %:marca%)) " +
             "AND (:valorMin IS NULL OR a.valor >= :valorMin) " +
             "AND (:valorMax IS NULL OR a.valor <= :valorMax) " +
-            "AND (:tipoNegociacao IS NULL OR a.tipoNegociacao = :tipoNegociacao) " +
+            "AND (:tipoNegociacao IS NULL OR " +
+            "(:tipoNegociacao = 'VENDA' AND (a.tipoNegociacao = 'VENDA' OR a.tipoNegociacao = 'AMBOS')) OR " +
+            "(:tipoNegociacao = 'TROCA' AND (a.tipoNegociacao = 'TROCA' OR a.tipoNegociacao = 'AMBOS')) OR " +
+            "(:tipoNegociacao = 'AMBOS' AND (a.tipoNegociacao = 'VENDA' OR a.tipoNegociacao = 'TROCA' OR a.tipoNegociacao = 'AMBOS'))) " +
             "AND (:kmMin IS NULL OR a.veiculo.kmRodados >= :kmMin) " +
             "AND (:kmMax IS NULL OR a.veiculo.kmRodados <= : kmMax) " +
             "AND (:tipoCombustivel IS NULL OR a.veiculo.tipoCombustivel = :tipoCombustivel) " +
@@ -34,7 +37,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, String> {
                                    String marca,
                                    BigDecimal valorMin,
                                    BigDecimal valorMax,
-                                   Anuncio.TipoNegociacao tipoNegociacao,
+                                   String tipoNegociacao,
                                    Double kmMin,
                                    Double kmMax,
                                    Veiculo.TipoCombustivel tipoCombustivel,

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +62,6 @@ public class AnuncioService {
     public List<Anuncio> filtrarAnuncios(String modelo, String marca, BigDecimal valorMin,
                                          BigDecimal valorMax, Anuncio.TipoNegociacao tipoNegociacao, Double kmMin,
                                          Double kmMax, Veiculo.TipoCombustivel tipoCombustivel, String anoMin, String anoMax, String cor){
-        return anuncioRepository.findAllByFilters(modelo, marca, valorMin, valorMax, tipoNegociacao, kmMin, kmMax, tipoCombustivel, anoMin, anoMax, cor);
+        return anuncioRepository.findAllByFilters(modelo, marca, valorMin, valorMax, Optional.ofNullable(tipoNegociacao).map(Enum::name).orElse(null), kmMin, kmMax, tipoCombustivel, anoMin, anoMax, cor);
     }
 }

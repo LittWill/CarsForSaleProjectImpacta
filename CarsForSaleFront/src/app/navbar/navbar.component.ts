@@ -40,4 +40,11 @@ export class NavbarComponent {
     this.busca = '';
   }
 
+  reload(){
+    if (this.router.url === '/anuncios'){
+      window.location.reload();
+    }
+   
+  }
+
 }

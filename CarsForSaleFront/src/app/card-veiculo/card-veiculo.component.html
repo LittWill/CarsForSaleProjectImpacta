@@ -22,6 +22,9 @@
   <div class="info" [class.anuncio-desativado]="!anuncio.ativo">
         <div class="valor-box">
             <span class="valor">{{anuncio.valor | currency: "BRL"}}</span>
+            <span class="tipo-negociacao">
+              {{anuncio.tipoNegociacao == 'AMBOS' ? 'VENDA & TROCA' : anuncio.tipoNegociacao}}
+            </span>
         </div>
         <div class="detalhes">
             <span class="modelo">{{anuncio.veiculo.marca.nome + " " + anuncio.veiculo.modelo}}</span>

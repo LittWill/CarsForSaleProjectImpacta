@@ -27,6 +27,24 @@ img {
     margin-top: 10px;
 }
 
+.valor-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .tipo-negociacao {
+        margin-right: 5px;
+        border: 1px solid;
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+        font-family: "Shadows Into Light", cursive;
+        font-weight: 600;
+        background-color: #ff6126;
+        color: white;
+    }
+}
+
 .info .valor {
     font-size: 24px;
 }
